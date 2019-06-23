@@ -1,45 +1,55 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+
 
 
 import {baseService} from '../services'
-import TabContent from "../components/TabContent";
 import Comments from "../components/Comments";
 import {Card} from "semantic-ui-react";
-import CardLinkCard from "../components/CardProfile";
-import UseForm from "../customHooks";
+import * as actionsPosts from "../actions/postsAction";
+import * as actionsComments from "../actions/commentsAction";
+import commentReducer from "../reducers/commentsReducer";
 
 
-const PostDetailContainer = (props) => {
-    const [comments, setComments] = useState([])
-    const [post, setPost] = useState([])
-    const postId = props.location.pathname.replace(/[^0-9\.]+/g, '');
 
-    useEffect(() => {
-        async function fetchPostsData() {
-            const resultPost = await baseService().getPostByPostId(postId)
-            const resultComments = await baseService().getCommentsByPostId(postId)
+class PostDetailContainer extends React.Component {
 
-            setPost(resultPost.data)
-            setComments(resultComments.data)
+    componentWillMount() {
+        const id = this.props.location.pathname.replace(/[^0-9\.]+/g, '');
+        this.props.postsAction.getPostById(id);
+        this.props.commentsAction.getCommentsById(id)
+    }
 
-        }
+    render() {
+        return (
+            <div>
+                <Card.Content>
+                    <Card.Header>{this.props.post.title}</Card.Header>
+                </Card.Content>
+                <Card.Content description={this.props.post.body} />
+                <Card.Content extra>
+                    <Comments comments={this.props.comments}/>
+                </Card.Content>
+            </div>
+        )
+    }
 
-        fetchPostsData();
-    }, postId)
-
-    return (
-        <div>
-            <Card.Content>
-                <Card.Header>{post.title}</Card.Header>
-            </Card.Content>
-            <Card.Content description={post.body} />
-            <Card.Content extra>
-                <Comments comments={comments}/>
-            </Card.Content>
-        </div>
-    )
 }
 
+const mapStateToProps = state => {
+    return {
+        post: state.postReducer.selected,
+        comments: state.commentReducer.comments
+    };
+};
 
-export default withRouter(PostDetailContainer)
+const mapDispatchToProps = dispatch => {
+    return {
+        postsAction: bindActionCreators(actionsPosts, dispatch),
+        commentsAction: bindActionCreators(actionsComments, dispatch)
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetailContainer))
