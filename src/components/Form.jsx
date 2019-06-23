@@ -1,9 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useReducer} from 'react'
 import {Button, Form} from "semantic-ui-react";
-import UseForm from "../customHooks";
 
-const FormCompose = () => {
-    const {body, title, setPostBody, setPostTitle, handleSubmit} = UseForm()
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+
+import * as actionsPosts from '../actions/postsAction'
+
+function FormCompose (props) {
+    const [title, setPostTitle] = useState('')
+    const [body, setPostBody] = useState('')
+
+    const handleSubmit = (e) => {
+        if (e) e.preventDefault()
+        const newPost = {body, title, userId:1}
+        props.posts.addNewPost(newPost)
+
+    }
+
     return (
         <Form reply>
             <Form.Input
@@ -19,4 +32,12 @@ const FormCompose = () => {
     )
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        posts: bindActionCreators(actionsPosts, dispatch),
+    }
+}
+
+FormCompose = connect(null, mapDispatchToProps)(FormCompose)
 export default FormCompose
+

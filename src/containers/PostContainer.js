@@ -1,32 +1,38 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 
 
-import {baseService} from '../services'
 import TabContent from "../components/TabContent";
-import UseForm from "../customHooks";
+import * as actionsPosts from '../actions/postsAction'
 
+class PostsContainer extends React.Component {
 
-const PostsContainer = (props) => {
-    const [posts, setPosts] = useState([])
-    const {newPost, setNewPost} = UseForm()
-    const userId = props.location.pathname.replace(/[^0-9\.]+/g, '');
+    componentWillMount() {
+        const userId = this.props.location.pathname.replace(/[^0-9\.]+/g, '');
+        this.props.postsAction.getPostsByUserId(userId);
+    }
 
+    render() {
+        return (
+            <TabContent posts={this.props.posts.reverse()} title={'Posts'} compose={true}/>
+        )
+    }
 
-    useEffect(() => {
-        async function fetchPostsData() {
-            const result = await baseService().getPostsByUserId(userId)
-            console.log(setNewPost)
-            setNewPost(result.data)
-        }
-
-        fetchPostsData();
-    }, [])
-
-    return (
-        <TabContent posts={newPost} title={'Posts'} compose={true}/>
-    )
 }
 
+const mapStateToProps = state => {
+    return {
+        posts: state.postReducer,
+    };
+};
 
-export default withRouter(PostsContainer)
+const mapDispatchToProps = dispatch => {
+    return {
+        postsAction: bindActionCreators(actionsPosts, dispatch),
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostsContainer))
+
