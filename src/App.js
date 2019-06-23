@@ -5,7 +5,7 @@ import {Route, BrowserRouter as Router} from 'react-router-dom';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 
-import {UserPage} from './pages'
+import {PhotosPage, PostDetailPage, UserPage} from './pages'
 
 function App() {
     return (
@@ -13,9 +13,13 @@ function App() {
             <header className="App-header"></header>
             <div className="container">
                 <Router>
-                <Route>
-                    <Route path="/:id" component={UserPage}/>
-                </Route>
+                    <Route>
+                        <Switch>
+                            <Route exact path="/:id" component={UserPage}/>
+                            <Route path="/albums/:id" component={PhotosPage}/>
+                            <Route path="/posts/:id" component={PostDetailPage}/>
+                        </Switch>
+                    </Route>
                 </Router>
             </div>
         </div>

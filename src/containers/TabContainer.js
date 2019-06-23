@@ -1,12 +1,12 @@
 import React from 'react'
 import {Container, Tab} from 'semantic-ui-react'
 import PostsContainer from "./PostContainer";
+import AlbumsContainer from "./AlbumContainer";
 
 
 const panes = [
-    {menuItem: 'Tab 1', render: () => <Tab.Pane><PostsContainer /></Tab.Pane>},
-    {menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>},
-    {menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>},
+    {menuItem: 'Posts', render: () => <Tab.Pane><PostsContainer /></Tab.Pane>},
+    {menuItem: 'Albums', render: () => <Tab.Pane><AlbumsContainer /></Tab.Pane>},
 ]
 
 const TabContainer = () => {
