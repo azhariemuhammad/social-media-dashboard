@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import {baseService} from "../services";
+import {Container} from "semantic-ui-react";
 import {withRouter} from "react-router";
+
+import {baseService} from "../services";
 import ImageCard from "../components/ImageCard";
 
 const PhotoContainer = (props) => {
@@ -17,17 +19,20 @@ const PhotoContainer = (props) => {
         fetchPostsData();
     }, [])
 
+
     return (
-        <div>
-        {
-            photos &&
-            photos.map((photo, idx) => {
-                return (
-                    <ImageCard photo={photo} key={idx}/>
-                )
-        })
-        }
-        </div>
+        <Container>
+            {
+                photos.length > 1 ?
+                photos.map((photo, idx) => {
+                    return (
+                            <ImageCard photo={photo} key={idx}/>
+                    )
+                })
+                    :
+                    <h1>Loading...</h1>
+            }
+        </Container>
 
     )
 }

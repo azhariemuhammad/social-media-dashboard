@@ -10,10 +10,17 @@ function commentReducer( state = initialState, {type, payload}) {
     switch (type) {
         case types.GET_COMMENTS_BY_ID:
             return {...state, comments: payload}
-        // case types.ADD_NEWPOST:
-        //     return [...state, payload]
-        // case types.GET_POSTS_BY_ID:
-        //     return {...state, selected: payload}
+        case types.ADD_NEW_COMMENT:
+            return {...state, comments: [...state.comments, payload]}
+        case types.EDIT_COMMENT:
+            return {...state, comments: state.comments.map(item => {
+                    if (item.id !== payload.id) {
+                        return item
+                    }
+                    return {...item, ...payload}
+                })}
+        case types.DELETE_COMMENT:
+            return {...state, comments: state.comments.filter(({id}) => id !== payload)}
         default:
             return state
     }

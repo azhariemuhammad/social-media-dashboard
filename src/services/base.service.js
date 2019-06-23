@@ -43,12 +43,19 @@ export default () => {
             method: 'DELETE',
             url: `/posts/${postId}`
         }),
-        // createSomething: ({ name }) => client.request({
-        //   method: 'POST',
-        //   url: `/somthing`,
-        //   data: {
-        //     name
-        //   }
-        // })
+        createComment: (postId, comment) => client.request({
+            method: 'POST',
+            url: `/postId/${postId}/comments`,
+            data: comment
+        }),
+        editComment: (commentId, comment) => client.request({
+            method: 'PUT',
+            url: `/comments/${commentId}`,
+            data: comment
+        }),
+        deleteComment: (commentId) => client.request({
+            method: 'DELETE',
+            url: `/comments/${commentId}`,
+        })
     };
 };
