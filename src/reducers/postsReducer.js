@@ -14,6 +14,10 @@ function postReducer( state = initialState, {type, payload}) {
             return [...state, payload]
         case types.GET_POSTS_BY_ID:
             return {...state, selected: payload}
+        case types.EDIT_POST:
+            return {...state, selected: payload}
+        case types.DELETE_POST:
+            return {...state, selected: {}}
         default:
             return state
     }

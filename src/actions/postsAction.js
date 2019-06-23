@@ -48,3 +48,41 @@ export const getPostsByUserId = (userId) => {
         dispatch(getNewPostsSuccess(posts))
     }
 }
+
+
+export const editPost = (post) => {
+    const editedPost = {
+        userId: post.userId,
+        title: post.title,
+        body: post.body,
+        id: post.id
+    }
+
+    return async dispatch => {
+        const editResult = await baseService().editPost(editedPost, post.id)
+        dispatch(editPostSuccess(editResult))
+        console.log(editResult)
+    }
+}
+
+export const editPostSuccess = (edited) => {
+    return {
+        type: types.EDIT_POST,
+        payload: edited.data
+    }
+}
+
+
+export const deletePost = (id) => {
+    return async dispatch => {
+        const deletedPost = await baseService().deletePost(id)
+        dispatch(deletePostSuccess())
+        console.log(deletedPost)
+    }
+}
+
+export const deletePostSuccess = () => {
+    return {
+        type: types.DELETE_POST,
+    }
+}

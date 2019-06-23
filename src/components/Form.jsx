@@ -10,11 +10,28 @@ function FormCompose (props) {
     const [title, setPostTitle] = useState('')
     const [body, setPostBody] = useState('')
 
-    const handleSubmit = (e) => {
-        if (e) e.preventDefault()
-        const newPost = {body, title, userId:1}
-        props.posts.addNewPost(newPost)
+    useEffect(() => {
+        if (props.isEdit) {
+            setPostTitle(props.post.title)
+            setPostBody(props.post.body)
+        }
+    }, [])
 
+    const handleSubmit = async (e) => {
+        if (e) e.preventDefault()
+        const newPost = {body, title, userId: props.id}
+
+        if (!props.isEdit) {
+            props.posts.addNewPost(newPost)
+        } else {
+            const editedPost = {body, title, userId: props.post.userId, id: props.post.id}
+            await props.posts.editPost(editedPost)
+            await props.handleModal(false)
+        }
+    }
+
+    const closeModal = () => {
+        props.handleModal(false)
     }
 
     return (
@@ -27,7 +44,10 @@ function FormCompose (props) {
                 onChange={e => setPostBody(e.target.value)}
                 name='body'
                 value={body || ''}  />
-            <Button content='Compose' onClick={handleSubmit} labelPosition='left' icon='edit' primary />
+            <Button
+                content={props.isEdit ? 'Edit' : 'Compose'}
+                onClick={handleSubmit} labelPosition='left' icon='edit' primary />
+            {props.isEdit && <Button content='close' onClick={closeModal} labelPosition='right' icon='close' />}
         </Form>
     )
 }

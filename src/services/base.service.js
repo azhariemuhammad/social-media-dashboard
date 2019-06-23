@@ -34,6 +34,15 @@ export default () => {
             url: `/posts`,
             data: dataPost
         }),
+        editPost: (dataPost, postId) => client.request({
+            method: 'PUT',
+            url: `/posts/${postId}`,
+            data: dataPost
+        }),
+        deletePost: (dataPost, postId) => client.request({
+            method: 'DELETE',
+            url: `/posts/${postId}`
+        }),
         // createSomething: ({ name }) => client.request({
         //   method: 'POST',
         //   url: `/somthing`,
