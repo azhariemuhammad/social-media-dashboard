@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useReducer} from 'react'
 import {Button, Form} from "semantic-ui-react";
 
-import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+import {connect} from "react-redux";
+import {bindActionCreators} from 'redux';
 
 import * as actionsPosts from '../actions/postsAction'
 
-function FormCompose (props) {
+function PostCompose(props) {
     const [title, setPostTitle] = useState('')
     const [body, setPostBody] = useState('')
 
@@ -35,20 +35,29 @@ function FormCompose (props) {
     }
 
     return (
-        <Form reply>
-            <Form.Input
-                name='title'
-                value={title || ''}
-                onChange={e => setPostTitle(e.target.value)} />
-            <Form.TextArea
-                onChange={e => setPostBody(e.target.value)}
-                name='body'
-                value={body || ''}  />
+        <Form reply className="margin-8">
+            <Form.Field>
+                <label>Title</label>
+                <Form.Input
+                    name='title'
+                    value={title || ''}
+                    onChange={e => setPostTitle(e.target.value)}/>
+            </Form.Field>
+            <Form.Field>
+                <label>Message</label>
+                <Form.TextArea
+                    onChange={e => setPostBody(e.target.value)}
+                    name='body'
+                    value={body || ''}
+                />
+            </Form.Field>
             <Button
                 content={props.isEdit ? 'Edit' : 'Compose'}
-                onClick={handleSubmit} labelPosition='left' icon='edit' primary />
-            {props.isEdit && <Button content='close' onClick={closeModal} labelPosition='right' icon='close' />}
+                onClick={handleSubmit} labelPosition='left' icon='edit' primary
+                disabled={(body.length > 1 && title.length > 1) ? false : true}/>
+            {props.isEdit && <Button content='close' onClick={closeModal} labelPosition='right' icon='close'/>}
         </Form>
+
     )
 }
 
@@ -58,6 +67,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-FormCompose = connect(null, mapDispatchToProps)(FormCompose)
-export default FormCompose
+PostCompose = connect(null, mapDispatchToProps)(PostCompose)
+export default PostCompose
 

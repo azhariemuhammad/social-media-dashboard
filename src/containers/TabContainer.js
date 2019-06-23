@@ -9,12 +9,7 @@ const panes = [
     {menuItem: 'Albums', render: () => <Tab.Pane><AlbumsContainer /></Tab.Pane>},
 ]
 
-const TabContainer = () => {
-    return (
-        <Container>
-            <Tab panes={panes}/>
-        </Container>
-    )
-}
+const TabContainer = () => <Tab panes={panes}/>
+
 
 export default TabContainer

@@ -23,7 +23,6 @@ class PostsContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state.postReducer.posts)
     return {
         posts: state.postReducer.posts,
     };

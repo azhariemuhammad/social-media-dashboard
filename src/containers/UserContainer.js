@@ -18,7 +18,7 @@ export const UserContainer = () => {
     }, [])
 
     return (
-        <Container>
+        <Container style={{width: '300px', paddingRight: '16px'}}>
             <UserList users={users}/>
         </Container>
     )

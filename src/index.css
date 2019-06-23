@@ -22,3 +22,11 @@ code {
   display: flex;
   justify-content: space-between;
 }
+
+.margin-8 {
+  margin: 8px;
+}
+
+.user {
+  cursor: pointer;
+}
