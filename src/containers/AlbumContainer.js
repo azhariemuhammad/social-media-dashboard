@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import {baseService} from "../services";
-import {Card, Container} from "semantic-ui-react";
-import CardLinkCard from "../components/CardProfile";
 import {withRouter} from "react-router";
+
+import {baseService} from "../services";
 import TabContent from "../components/TabContent";
 
 const AlbumsContainer = (props) => {

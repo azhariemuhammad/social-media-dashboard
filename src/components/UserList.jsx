@@ -10,6 +10,8 @@ function UserList(props) {
 
     const chooseUser = (user) => {
         localStorage.setItem('userId', user.id)
+        localStorage.setItem('name', user.name)
+        localStorage.setItem('email', user.email)
         props.history.push(`/${user.id}`)
     }
 
@@ -24,7 +26,7 @@ function UserList(props) {
                         (props.users.length > 0) &&
                         props.users.map((user, idx) => {
                             return (
-                                <Feed.Event key={idx} onClick={() => chooseUser(user)}>
+                                <Feed.Event className="user" key={idx} onClick={() => chooseUser(user)}>
                                     <Feed.Label image={(idx % 2 === 0) ? avatar : avatar2}/>
                                     <Feed.Content>
                                         <Feed.Date content={user.username}/>
