@@ -12,7 +12,6 @@ export const UserContainer = () => {
         async function fetchUserData() {
             const result = await baseService().getAllUsers()
 
-            console.log(result.data)
             setUsers(result.data)
         }
         fetchUserData();

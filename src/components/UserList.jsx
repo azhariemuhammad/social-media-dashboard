@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
-import {withRouter} from 'react-router-dom'
 import {Card, Feed} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 import avatar from '../assets/images/jenny.jpg';
 import avatar2 from '../assets/images/elliot.jpg';
-import UseChooseUser from "../customHooks";
-import {Link} from 'react-router-dom'
+
+
 
 
 const UserList = ({users}) => {
@@ -38,9 +38,6 @@ const UserList = ({users}) => {
         </Card>
     )
 }
-
-
-// this also works with react-router-native
 
 
 export default UserList
