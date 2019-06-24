@@ -17,5 +17,5 @@ $ npm start
 ### Running tests
 
 ```sh
-$ npm test
+$ npm run test
 ```
