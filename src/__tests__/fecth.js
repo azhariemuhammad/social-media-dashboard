@@ -12,7 +12,7 @@ import "../setupTests"
 import PostsContainer from "../containers/PostContainer";
 import {Provider} from "react-redux";
 import store from '../store/configureStore'
-import mockAxios from "axios";
+import axiosMock from "axios";
 
 
 afterEach(cleanup)
@@ -40,13 +40,7 @@ function renderWithRouter(
 }
 
 test('Test Api call', async () => {
-    mockAxios.get.mockImplementationOnce(() =>
-        Promise.resolve({
-            data: post
-        })
-    );
-
-
+    await axiosMock.get.mockResolvedValueOnce({ data: { greeting: "hello there" } });
 
     const {container} = renderWithRouter(
         <PostsContainer />, {
@@ -54,5 +48,5 @@ test('Test Api call', async () => {
         }
     )
     await waitForElement(() => container());
-    expect(mockAxios.get).toHaveBeenCalledTimes(1)
+    expect(axiosMock.get).toHaveBeenCalledTimes(1)
 })

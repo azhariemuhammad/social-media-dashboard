@@ -41,7 +41,9 @@ function PostCompose(props) {
                 <Form.Input
                     name='title'
                     value={title || ''}
-                    onChange={e => setPostTitle(e.target.value)}/>
+                    onChange={e => setPostTitle(e.target.value)}
+                    data-testid="title"
+                />
             </Form.Field>
             <Form.Field>
                 <label>Message</label>
@@ -49,6 +51,7 @@ function PostCompose(props) {
                     onChange={e => setPostBody(e.target.value)}
                     name='body'
                     value={body || ''}
+                    data-testid="body"
                 />
             </Form.Field>
             <Button
