@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Tab} from 'semantic-ui-react'
+import {Tab} from 'semantic-ui-react'
 import PostsContainer from "./PostContainer";
 import AlbumsContainer from "./AlbumContainer";
 

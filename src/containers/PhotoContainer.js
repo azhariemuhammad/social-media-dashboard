@@ -12,7 +12,6 @@ const PhotoContainer = (props) => {
         async function fetchPostsData() {
             const result = await baseService().getPhotosByAlbumId(albumId)
 
-            console.log(result.data)
             setPhotos(result.data)
         }
 

@@ -1,23 +1,20 @@
 import * as types from '../types';
 
 const initialState = {
-    comments: [],
-    selected: {}
+    comments: []
 }
 function commentReducer( state = initialState, {type, payload}) {
-    console.log('bangke comments')
-    console.log(type, payload)
     switch (type) {
         case types.GET_COMMENTS_BY_ID:
             return {...state, comments: payload}
         case types.ADD_NEW_COMMENT:
             return {...state, comments: [...state.comments, payload]}
         case types.EDIT_COMMENT:
-            return {...state, comments: state.comments.map(item => {
-                    if (item.id !== payload.id) {
-                        return item
+            return {...state, comments: state.comments.map(comment => {
+                    if (comment.id !== payload.id) {
+                        return comment
                     }
-                    return {...item, ...payload}
+                    return {...comment, ...payload}
                 })}
         case types.DELETE_COMMENT:
             return {...state, comments: state.comments.filter(({id}) => id !== payload)}
